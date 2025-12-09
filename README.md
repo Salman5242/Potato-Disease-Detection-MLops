@@ -98,11 +98,6 @@ jupyter notebook
 4. Run all the Cells one by one.
 5. Model would be saved in `tf-lite-models` folder.
 
-
-### ***Mobile-Application ScreenShot***
-
-![Potato-pulse](potato-pulse-mob-app-s.s.jpeg)
-
 ### *WEB Page*
 ![Potato-pulse2](Webapp.png)
 
