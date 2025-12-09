@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
             background-color: #f8f9fa;
             text-align: center;
         }
+
         .container {
             margin-top: 50px;
             width: 50%;
@@ -18,30 +20,37 @@
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
         }
+
         h1 {
             color: #007bff;
             font-size: 36px;
             margin-bottom: 20px;
         }
+
         .result-info {
             margin-bottom: 20px;
         }
+
         .result-info p {
             font-size: 20px;
             margin-bottom: 10px;
         }
+
         .result-info p strong {
             color: #28a745;
         }
+
         .result-image {
             margin-bottom: 20px;
         }
+
         .result-image img {
             max-width: 100%;
             border-radius: 5px;
         }
+
         .upload-another {
             display: inline-block;
             margin-right: 20px;
@@ -52,25 +61,45 @@
             border-radius: 5px;
             transition: background-color 0.3s;
         }
+
         .upload-another:hover {
             background-color: #007bff;
             color: white;
         }
+
         .github-link {
             display: inline-block;
             text-decoration: none;
-            color: #343a40;
-            background-color: #28a745;
+            color: white;
+            background-color: #24292e;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .github-link:hover {
+            background-color: #1a1e22;
+            color: white;
+        }
+
+        .docker-link {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #0db7ed;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
-        .github-link:hover {
-            background-color: #218838;
+
+        .docker-link:hover {
+            background-color: #0a8ec2;
             color: white;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Potato Pulse - Result</h1>
@@ -82,8 +111,12 @@
         <div class="result-image">
             <img src="{{ url_for('static', filename=filename) }}" alt="Uploaded Image">
         </div>
-        <a href="/" class="upload-another">Upload Another Image</a>
-        <a href="https://github.com/muhammadali079/Potato-pulse" class="github-link" target="_blank">GitHub</a>
+        <a href="https://potato-disease-detection-veh2.onrender.com/" class="upload-another">Upload Another Image</a>
+        <a href="https://github.com/Salman5242/Potato-Disease-Detection-MLops" class="github-link"
+            target="_blank">GitHub</a>
+        <a href="https://hub.docker.com/r/salman5243/potato-disease-detection" class="docker-link"
+            target="_blank">Docker Hub</a>
     </div>
 </body>
+
 </html>

@@ -49,7 +49,7 @@ def predict_data(model, img):
     max_probability = np.max(predictions[0])
     predicted_class = class_names[np.argmax(predictions[0])]
     
-    confidence = round((100 * max_probability) - random.randrange(0,5), 2)
+    confidence = round((100 * max_probability) - random.randrange(5, 11), 2)
     if max_probability < threshold:
         predicted_class = "Invalid Image: Not a potato leaf"
         confidence = round((100 * max_probability) - (25 * threshold), 2) 
@@ -123,6 +123,10 @@ def testing():
             
     else:
         return jsonify({'error': 'Method not allowed'})
+
+@app.route('/documentation')
+def documentation():
+    return render_template('documentation.html')
 
 if __name__ == '__main__':
      app.run(host='0.0.0.0', port=8080)
