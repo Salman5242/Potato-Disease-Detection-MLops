@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  potato-disease-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: potato-disease-detection
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mount static folder for uploaded images (optional - for persistence)
+      - ./static:/app/static
+      # Mount models folder (in case you update models)
+      - ./Models:/app/Models
+    environment:
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

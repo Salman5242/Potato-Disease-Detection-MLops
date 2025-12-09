@@ -1,0 +1,49 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+v1/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation and media files (optional - comment out if you want them in the image)
+*.mp4
+*.gif
+Documentation.txt
+README.md
+LICENSE
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Training data (exclude to reduce image size)
+Data Training/
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Commands file
+commands.txt
