@@ -1,0 +1,340 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --primary-green: #5FA66E;
+    --dark-green: #2F5D45;
+    --light-beige: #F7F5EF;
+    --accent-yellow: #F2C94C;
+    --error-red: #D9534F;
+    --text-dark: #2D3436;
+    --text-light: #636E72;
+    --white: #FFFFFF;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-beige);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+.main-header {
+    background: linear-gradient(135deg, var(--dark-green), var(--primary-green));
+    padding: 1.5rem 0;
+    color: var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-text h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.logo-text p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 0.8;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Upload Card */
+.upload-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.card-title {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-green);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.card-subtitle {
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
+
+.drop-zone {
+    display: block;
+    /* Ensure it behaves like a block element */
+    width: 100%;
+    /* Take full width */
+    border: 2px dashed #CBD5E0;
+    border-radius: var(--radius);
+    padding: 40px 20px;
+    transition: all 0.3s ease;
+    background-color: #FAFAF9;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.drop-zone:hover {
+    border-color: var(--primary-green);
+    background-color: #F0FDF4;
+}
+
+.upload-icon {
+    font-size: 40px;
+    color: var(--primary-green);
+    margin-bottom: 15px;
+}
+
+.upload-btn {
+    background-color: var(--primary-green);
+    color: var(--white);
+    padding: 12px 30px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+}
+
+.upload-btn:hover {
+    background-color: var(--dark-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(95, 166, 110, 0.3);
+}
+
+/* Preview Image */
+#selected-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: var(--radius);
+    margin-top: 20px;
+    box-shadow: var(--shadow-sm);
+    display: none;
+}
+
+/* Result Panel */
+.result-panel {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: var(--shadow-md);
+    margin-top: 20px;
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Make result panel visible when it has content */
+#predictionResult:not(:empty)+.ai-insight-box {
+    display: block;
+}
+
+#predictionResult:not(:empty) {
+    display: block;
+}
+
+#predictionResult {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Result Colors - handled dynamically or by classes usually, but matching text content for now */
+.result-healthy {
+    color: var(--primary-green);
+    background-color: #E6F4EA;
+    border: 1px solid var(--primary-green);
+}
+
+.result-disease {
+    color: var(--error-red);
+    background-color: #FDE8E8;
+    border: 1px solid var(--error-red);
+}
+
+/* AI Insight Box */
+.ai-insight-box {
+    background-color: #F8FAFC;
+    border-left: 4px solid var(--accent-yellow);
+    padding: 20px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 20px;
+    text-align: left;
+    display: none;
+    /* Hidden by default */
+}
+
+.insight-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.insight-text {
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+
+/* Footer */
+.main-footer {
+    background-color: var(--white);
+    padding: 30px 0;
+    margin-top: auto;
+    border-top: 1px solid #E2E8F0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.footer-links a {
+    color: var(--text-dark);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    color: var(--primary-green);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Utilities */
+.hidden {
+    display: none;
+}
+
+/* File Input */
+#fileInput {
+    display: none;
+}
+
+/* Material Symbols Tweaks */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Specific styling for prediction text content which might be bare text */
+div#predictionResult {
+    /* Default stylish look even if script just dumps text */
+    background: var(--white);
+    border: 1px solid #E2E8F0;
+    color: var(--text-dark);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        /* Simplified for mobile */
+    }
+
+    .logo-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .upload-card {
+        padding: 20px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-links a {
+        margin: 0;
+    }
+}

@@ -1,0 +1,6 @@
+conda create -n v1 python=3.10
+conda activate v1
+pip install -r requirements.txt
+
+
+python app.py

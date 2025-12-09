@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potato Pulse | AI Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container nav-content">
+            <div class="logo-section">
+                <span class="material-symbols-outlined" style="font-size: 36px;">eco</span>
+                <div class="logo-text">
+                    <h1>Potato Pulse</h1>
+                    <p>AI-Powered Leaf Disease Detection</p>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">About Model</a>
+                <a href="" target="_blank">Documentation</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Upload Card -->
+        <div class="upload-card">
+            <h2 class="card-title">Analyze Your Crop</h2>
+            <p class="card-subtitle">Upload a clear photo of a potato leaf to detect Early or Late Blight.</p>
+
+            <label for="fileInput" class="drop-zone">
+                <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+                <p><strong>Click to upload</strong> or drag and drop</p>
+                <p style="font-size: 0.8rem; color: #9CA3AF; margin-top: 5px;">Supports jpg, png, jpeg</p>
+                <input type="file" name="file" id="fileInput" accept="image/*" onchange="displaySelectedImage(event)">
+            </label>
+
+            <!-- Live Preview -->
+            <img id="selected-image" src="#" alt="Selected Image">
+
+            <div style="margin-top: 25px;">
+                <button type="button" class="upload-btn" onclick="predictClass()">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        Analyze Image <span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Prediction Result -->
+            <div id="predictionResult"></div>
+
+            <!-- AI Insight (Initial state hidden, shown via CSS when sibling has content) -->
+            <div class="ai-insight-box">
+                <div class="insight-title">
+                    <span class="material-symbols-outlined">lightbulb</span>
+                    AI Insight
+                </div>
+                <p class="insight-text">
+                    The AI analyzes leaf patterns to identify disease symptoms. <br>
+                    <strong>Healthy:</strong> No action needed.<br>
+                    <strong>Early Blight:</strong> Look for concentric rings on leaves.<br>
+                    <strong>Late Blight:</strong> Look for dark, water-soaked lesions.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div>
+                &copy; 2024 Potato Pulse. Powered by TensorFlow & Flask.
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/muhammadali079/Potato-pulse" target="_blank">GitHub</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <!-- Inline script to handle simple UI logic that shouldn't touch the main logic script -->
+    <script>
+        // Simple drag and drop visual feedback
+        const dropZone = document.querySelector('.drop-zone');
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dropZone.classList.add('highlight');
+            dropZone.style.borderColor = 'var(--primary-green)';
+            dropZone.style.backgroundColor = '#F0FDF4';
+        }
+
+        function unhighlight(e) {
+            dropZone.classList.remove('highlight');
+            dropZone.style.borderColor = '#CBD5E0';
+            dropZone.style.backgroundColor = '#FAFAF9';
+        }
+
+        // Improve the existing displaySelectedImage slightly to check for valid file
+        const originalDisplay = window.displaySelectedImage;
+        window.displaySelectedImage = function (event) {
+            if (event.target.files && event.target.files[0]) {
+                const selectedImage = document.getElementById('selected-image');
+                selectedImage.style.display = 'block'; // Ensure it becomes visible
+                if (originalDisplay) originalDisplay(event);
+            }
+        };
+
+        // Observe prediction result for changes to style it
+        const targetNode = document.getElementById('predictionResult');
+        if (targetNode) {
+            const config = { childList: true, characterData: true, subtree: true };
+            const callback = function (mutationsList, observer) {
+                // Disconnect to avoid infinite loop
+                observer.disconnect();
+
+                const text = targetNode.textContent.toLowerCase();
+                // Avoid reprocessing if already styled and icon exists
+                if (targetNode.querySelector('.material-symbols-outlined')) {
+                    observer.observe(targetNode, config);
+                    return;
+                }
+
+                targetNode.className = ''; // reset
+                targetNode.classList.add('result-panel'); // Always add base class
+
+                if (text.includes('healthy')) {
+                    targetNode.classList.add('result-healthy');
+                    targetNode.innerHTML = `<span class="material-symbols-outlined" style="vertical-align: middle; margin-right:8px;">check_circle</span> ${targetNode.textContent}`;
+                } else if (text.includes('blight')) {
+                    targetNode.classList.add('result-disease');
+                    targetNode.innerHTML = `<span class="material-symbols-outlined" style="vertical-align: middle; margin-right:8px;">warning</span> ${targetNode.textContent}`;
+                } else if (text.includes('invalid')) {
+                    targetNode.classList.add('result-disease'); // Reuse error style or add new invalid style
+                    targetNode.innerHTML = `<span class="material-symbols-outlined" style="vertical-align: middle; margin-right:8px;">error</span> ${targetNode.textContent}`;
+                }
+
+                // Reconnect observer
+                observer.observe(targetNode, config);
+            };
+            const observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        }
+    </script>
+</body>
+
+</html>
